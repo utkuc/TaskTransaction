@@ -5,9 +5,5 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7e71afb_002Dd671_002D42bd_002Dba36_002D4dc268ac4443/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetUserByIdAsync_ReturnsUser" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Or&gt;&#xD;
-    &lt;ProjectFile&gt;FE07D40D-2169-48E2-9636-3A41D0887FF6/d:IntegrationTests/f:UserServiceIntegrationTests.cs&lt;/ProjectFile&gt;&#xD;
-    &lt;ProjectFile&gt;FE07D40D-2169-48E2-9636-3A41D0887FF6/d:IntegrationTests/f:TransactionControllerIntegrationTest.cs&lt;/ProjectFile&gt;&#xD;
-    &lt;ProjectFile&gt;FE07D40D-2169-48E2-9636-3A41D0887FF6/d:IntegrationTests/f:TransactionServiceIntegrationTest.cs&lt;/ProjectFile&gt;&#xD;
-  &lt;/Or&gt;&#xD;
+  &lt;Project Location="C:\Users\utkuc\Desktop\Utku-Projects\TaskTransaction\TaskTransaction.Test" Presentation="&amp;lt;TaskTransaction.Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
