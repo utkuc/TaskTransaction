@@ -78,8 +78,17 @@ public class UserController(ILogger<UserController> logger, UserService userServ
             return StatusCode(400, "Invalid user data.");
         }
 
-        var updatedUser =
-            await userService.UpdateUserIdAsync(updateUserIdDto.PreviousUserID, updateUserIdDto.NewUserID);
+        User updatedUser;
+        try
+        {
+            updatedUser =
+                await userService.UpdateUserIdAsync(updateUserIdDto.PreviousUserID, updateUserIdDto.NewUserID);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Could not update user id pk");
+            return StatusCode(500, "Could not update user id pk");
+        }
 
         if (updatedUser == null)
         {

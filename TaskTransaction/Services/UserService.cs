@@ -24,23 +24,42 @@ public class UserService(ILogger<UserService> logger, IUserRepository userReposi
 
     public async Task<User> UpdateUserIdAsync(string previousUserId, string newUserId)
     {
-        var existingUser = await userRepository.GetByIdAsync(previousUserId);
-        if (existingUser == null)
-            return null;
-        var possibleConflictedUser = await userRepository.GetByIdAsync(newUserId);
-        if (possibleConflictedUser != null)
+        await using var dbTransaction = await context.Database.BeginTransactionAsync();
+        try
         {
-            logger.LogWarning("UpdateUserIdAsync conflicted with existing user");
-            return null;
-        }
+            var existingUser = await userRepository.GetByIdAsync(previousUserId);
+            if (existingUser == null)
+                return null;
+            var possibleConflictedUser = await userRepository.GetByIdAsync(newUserId);
+            if (possibleConflictedUser != null)
+            {
+                logger.LogWarning("UpdateUserIdAsync conflicted with existing user");
+                return null;
+            }
 
-        var newUser = new User
+            var newUser = new User
+            {
+                UserID = newUserId,
+            };
+            await userRepository.AddAsync(newUser);
+
+            var transactions = await context.Transactions
+                .Where(t => t.UserID == previousUserId)
+                .ToListAsync();
+
+            foreach (var transaction in transactions)
+            {
+                transaction.UserID = newUserId;
+            }
+
+            await userRepository.DeleteAsync(existingUser.UserID);
+            return newUser;
+        }
+        catch (Exception e)
         {
-            UserID = newUserId,
-        };
-        await userRepository.DeleteAsync(existingUser.UserID);
-        await userRepository.AddAsync(newUser);
-        return newUser;
+            await dbTransaction.RollbackAsync();
+            throw;
+        }
     }
 
     public async Task<bool> DeleteUserAsync(string userId)
