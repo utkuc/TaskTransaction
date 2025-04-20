@@ -34,12 +34,19 @@ public class UserController(ILogger<UserController> logger, UserService userServ
     }
 
     [HttpPost("createUser")]
-    public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+    public async Task<IActionResult> CreateUser(CreateUserDto createUserDto)
     {
         if (createUserDto == null || string.IsNullOrWhiteSpace(createUserDto.UserID))
         {
             logger.LogWarning("CreateUser request body is not valid.");
             return StatusCode(400, "No user has been provided.");
+        }
+
+        var existingUser = await userService.GetUserByIdAsync(createUserDto.UserID);
+        if (existingUser != null)
+        {
+            logger.LogWarning("User with ID {Id} already exists", createUserDto.UserID);
+            return StatusCode(403, "User already exists");
         }
 
         User newUser;
