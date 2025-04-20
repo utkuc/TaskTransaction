@@ -82,6 +82,7 @@ public class TransactionController(
     public async Task<IActionResult> GetTransactionSumByType(decimal threshold)
     {
         var result = await transactionService.GetTransactionsAboveThresholdAsync(threshold);
-        return StatusCode(200, result);
+        var transactionDtos = autoMapper.Map<List<TransactionDto>>(result);
+        return StatusCode(200, transactionDtos);
     }
 }
