@@ -1,4 +1,4 @@
-# TaskTransaction API for NATO Challenge
+# TaskTransaction API
 
 ---
 
