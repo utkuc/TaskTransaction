@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskTransaction.Models.DbContext;
 
-namespace TaskTransaction.Models.User;
+namespace TaskTransaction.Models.User.Repository;
 
 public class UserRepository(TransactionContext context) : IUserRepository
 {
-    private IUserRepository _userRepositoryImplementation;
-
     public async Task<IEnumerable<User>> GetAllAsync()
     {
         return await context.Users.ToListAsync();

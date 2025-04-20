@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskTransaction.Models.DbContext;
 using TaskTransaction.Models.User;
+using TaskTransaction.Models.User.Repository;
 
 namespace TaskTransaction.Services;
 
@@ -55,7 +56,7 @@ public class UserService(ILogger<UserService> logger, IUserRepository userReposi
             await userRepository.DeleteAsync(existingUser.UserID);
             return newUser;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             await dbTransaction.RollbackAsync();
             throw;
