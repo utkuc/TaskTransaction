@@ -6,4 +6,6 @@ public class User
 {
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public string UserID { get; set; } = Guid.NewGuid().ToString();
+
+    public List<Transaction.Transaction> Transactions { get; set; }
 }

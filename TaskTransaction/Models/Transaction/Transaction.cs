@@ -10,4 +10,6 @@ public class Transaction
     [Required] public required decimal Amount { get; set; }
     [Required] public required TransactionType TransactionType { get; set; }
     [Required] public required DateTime CreatedTime { get; set; }
+
+    public User.User User { get; set; }
 }

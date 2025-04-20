@@ -27,8 +27,8 @@ public class TransactionContext(DbContextOptions<TransactionContext> options)
     private void MapUserAndTransactionRelations(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Transaction.Transaction>()
-            .HasOne<User.User>()
-            .WithMany()
+            .HasOne(t => t.User)
+            .WithMany(u => u.Transactions)
             .HasForeignKey(t => t.UserID);
     }
 }

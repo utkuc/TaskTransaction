@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TaskTransaction.Models;
 using TaskTransaction.Models.DbContext;
 using TaskTransaction.Models.Transaction.Repository;
-using TaskTransaction.Models.User;
+using TaskTransaction.Models.User.Repository;
 using TaskTransaction.Services;
 
 namespace TaskTransaction;

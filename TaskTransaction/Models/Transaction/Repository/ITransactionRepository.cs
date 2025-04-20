@@ -8,4 +8,5 @@ public interface ITransactionRepository
     Task AddAsync(Transaction transaction);
     Task UpdateAsync(Transaction transaction);
     Task<bool> DeleteAsync(long transactionId);
+    Task<List<Transaction>> GetTransactionsAboveThresholdAsync(decimal threshold);
 }

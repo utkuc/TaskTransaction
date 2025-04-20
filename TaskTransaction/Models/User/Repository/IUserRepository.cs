@@ -1,4 +1,4 @@
-﻿namespace TaskTransaction.Models.User;
+﻿namespace TaskTransaction.Models.User.Repository;
 
 public interface IUserRepository
 {
