@@ -71,7 +71,8 @@ public class UserController(ILogger<UserController> logger, UserService userServ
             return StatusCode(400, "Invalid user data.");
         }
 
-        var updatedUser = await userService.UpdateUserIdAsync(updateUserIdDto.PreviousUserID, updateUserIdDto.NewUserID);
+        var updatedUser =
+            await userService.UpdateUserIdAsync(updateUserIdDto.PreviousUserID, updateUserIdDto.NewUserID);
 
         if (updatedUser == null)
         {
@@ -103,5 +104,19 @@ public class UserController(ILogger<UserController> logger, UserService userServ
         }
 
         return StatusCode(200);
+    }
+
+    [HttpGet("getTotalTransactionAmountForUser/{userId}")]
+    public async Task<IActionResult> GetTransactionById(string userId)
+    {
+        var user = await userService.GetUserByIdAsync(userId);
+        if (user == null)
+        {
+            logger.LogWarning("User with id {Id} not found to fetch", userId);
+            return StatusCode(404);
+        }
+
+        var totalAmount = await userService.GetTotalTransactionAmountAsync(userId);
+        return StatusCode(200, totalAmount);
     }
 }

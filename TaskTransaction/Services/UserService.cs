@@ -1,8 +1,10 @@
-﻿using TaskTransaction.Models.User;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskTransaction.Models.DbContext;
+using TaskTransaction.Models.User;
 
 namespace TaskTransaction.Services;
 
-public class UserService(ILogger<UserService> logger, IUserRepository userRepository)
+public class UserService(ILogger<UserService> logger, IUserRepository userRepository, TransactionContext context)
 {
     public async Task<User> GetUserByIdAsync(string userId)
     {
@@ -49,5 +51,12 @@ public class UserService(ILogger<UserService> logger, IUserRepository userReposi
     public async Task CreateUserAsync(User user)
     {
         await userRepository.AddAsync(user);
+    }
+
+    public async Task<decimal> GetTotalTransactionAmountAsync(string userId)
+    {
+        return await context.Transactions
+            .Where(t => t.UserID == userId)
+            .SumAsync(t => t.Amount);
     }
 }

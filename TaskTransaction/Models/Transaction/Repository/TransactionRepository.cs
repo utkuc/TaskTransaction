@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskTransaction.Models.DbContext;
+using TaskTransaction.Models.Transaction.Enum;
 
 namespace TaskTransaction.Models.Transaction.Repository;
 
@@ -45,5 +46,12 @@ public class TransactionRepository(TransactionContext context) : ITransactionRep
         }
 
         return false;
+    }
+
+    public async Task<List<Transaction>> GetTransactionsAboveThresholdAsync(decimal threshold)
+    {
+        return await context.Transactions
+            .Where(t => t.Amount > threshold)
+            .ToListAsync();
     }
 }

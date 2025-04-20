@@ -5,15 +5,18 @@ namespace TaskTransaction.Models.User;
 
 public class UserRepository(TransactionContext context) : IUserRepository
 {
+    private IUserRepository _userRepositoryImplementation;
 
     public async Task<IEnumerable<User>> GetAllAsync()
     {
-         return await context.Users.ToListAsync();
+        return await context.Users.ToListAsync();
     }
+
     public async Task<User> GetByIdAsync(string userId)
     {
-       return await context.Users.FindAsync(userId);
+        return await context.Users.FindAsync(userId);
     }
+
     public async Task AddAsync(User user)
     {
         context.Users.Add(user);
