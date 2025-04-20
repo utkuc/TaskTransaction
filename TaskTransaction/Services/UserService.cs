@@ -2,12 +2,13 @@
 
 namespace TaskTransaction.Services;
 
-public class UserService (ILogger<UserService> logger,IUserRepository userRepository)
+public class UserService(ILogger<UserService> logger, IUserRepository userRepository)
 {
     public async Task<User> GetUserByIdAsync(string userId)
     {
         return await userRepository.GetByIdAsync(userId);
     }
+
     public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
         return await userRepository.GetAllAsync();
@@ -19,8 +20,34 @@ public class UserService (ILogger<UserService> logger,IUserRepository userReposi
         return user;
     }
 
+    public async Task<User> UpdateUserIdAsync(string previousUserId, string newUserId)
+    {
+        var existingUser = await userRepository.GetByIdAsync(previousUserId);
+        if (existingUser == null)
+            return null;
+        var possibleConflictedUser = await userRepository.GetByIdAsync(newUserId);
+        if (possibleConflictedUser != null)
+        {
+            logger.LogWarning("UpdateUserIdAsync conflicted with existing user");
+            return null;
+        }
+
+        var newUser = new User
+        {
+            UserID = newUserId,
+        };
+        await userRepository.DeleteAsync(existingUser.UserID);
+        await userRepository.AddAsync(newUser);
+        return newUser;
+    }
+
     public async Task<bool> DeleteUserAsync(string userId)
     {
         return await userRepository.DeleteAsync(userId);
+    }
+
+    public async Task CreateUserAsync(User user)
+    {
+        await userRepository.AddAsync(user);
     }
 }
