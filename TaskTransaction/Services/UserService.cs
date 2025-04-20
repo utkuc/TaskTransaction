@@ -54,6 +54,9 @@ public class UserService(ILogger<UserService> logger, IUserRepository userReposi
             }
 
             await userRepository.DeleteAsync(existingUser.UserID);
+
+            await context.SaveChangesAsync();
+            await dbTransaction.CommitAsync();
             return newUser;
         }
         catch (Exception)
