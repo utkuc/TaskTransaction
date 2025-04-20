@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTransaction", "TaskTransaction\TaskTransaction.csproj", "{8890A0A4-EA49-4343-8EC6-7E7E74CD99AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8890A0A4-EA49-4343-8EC6-7E7E74CD99AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8890A0A4-EA49-4343-8EC6-7E7E74CD99AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8890A0A4-EA49-4343-8EC6-7E7E74CD99AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8890A0A4-EA49-4343-8EC6-7E7E74CD99AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
