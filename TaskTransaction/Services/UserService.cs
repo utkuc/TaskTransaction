@@ -51,6 +51,7 @@ public class UserService(ILogger<UserService> logger, IUserRepository userReposi
             foreach (var transaction in transactions)
             {
                 transaction.UserID = newUserId;
+                transaction.User = newUser;
             }
 
             await userRepository.DeleteAsync(existingUser.UserID);
